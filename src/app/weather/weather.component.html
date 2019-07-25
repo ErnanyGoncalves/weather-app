@@ -1,0 +1,96 @@
+<div class="rectangle-min">
+    <a class="ion-android-arrow-back back-btn" [routerLink]="['/search']"></a>
+    <div class="container">
+        <div class="p-5">
+            <div class="input-group">
+                <input [(ngModel)]="cityName" type="text" class="form-control" placeholder="Your city name"
+                    aria-label="Your city name" aria-describedby="search-city-addon">
+                <div class="input-group-append">
+                    <button class="btn btn-white" id="search-city-addon" [routerLink]="['/search']"
+                        [queryParams]="{q: cityName}"><span style="color: #39a3db"
+                            class="ion-android-search"></span></button>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-5 mb-5">
+            <h1 class="mt-3">Weather in {{cityWeather.name}}, {{cityWeather.sys.country}}</h1>
+            <span>{{currentTime | date: 'HH:mm MMM d'}}</span>
+        </div>
+        <div class="card mt-3 mb-3">
+            <div class="row p-5">
+                <div class="col-3 text-center p-0 curr-info">
+                    <div class="curr-temp-box pt-3 pb-3 pl-2 pr-2">
+                        <h1 class="curr-temp">{{cityWeather.main.temp}}°C</h1>
+                    </div>
+                    <div class="pt-4">
+                        <img src="https://openweathermap.org/img/w/{{cityWeather.weather[0].icon}}.png"
+                            alt="{{cityWeather.weather[0].description}}">
+                        <p>{{cityWeather.weather[0].description}}</p>
+                    </div>
+                </div>
+                <div class="col-9 pl-4">
+                    <div class="row">
+                        <div class="col-4">
+                            <span class="highlight-a">Máx</span>
+                        </div>
+                        <div class="col-8">
+                            <p class="max-temp"> {{cityWeather.main.temp_max}} °C</p>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-4">
+                            <span class="highlight-a">Mín</span>
+                        </div>
+                        <div class="col-8">
+                            <p class="min-temp"> {{cityWeather.main.temp_min}} °C</p>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-4">
+                            <span class="highlight-a">Sunrise</span>
+                        </div>
+                        <div class="col-8">
+                            <p>{{cityWeather.sys.sunrise | date: 'HH:mm'}}</p>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-4">
+                            <span class="highlight-a">Sunset</span>
+                        </div>
+                        <div class="col-8">
+                            <p> {{cityWeather.sys.sunset | date: 'HH:mm'}}</p>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+            </div>
+            <div class="ml-5 mr-5">
+                <div class="mb-4">
+                    <h2 class="d-inline">5 day weather forecast</h2> <span class="ml-3">every 3 hours</span>
+                </div>
+                <div *ngFor="let forecast of forecasts.list">
+                    <div class="row">
+                        <div class="col-3">
+                            <p class="highlight-b mb-1">{{forecast.dt_txt | date: 'E d LLL' }}</p>
+                            <span>{{forecast.dt_txt | date:'HH:mm' }}</span>
+                        </div>
+                        <div class="col-3 d-inline">
+                            <img class="d-inline"
+                                src="https://openweathermap.org/img/w/{{forecast.weather[0].icon}}.png"
+                                alt="{{forecast.weather[0].description}}">
+                            <p class="d-inline">{{forecast.weather[0].description}}</p>
+                        </div>
+                        <div class="col-6 p-3">
+                            <p class="max-temp d-inline pr-3">{{forecast.main.temp_max}} °C</p>
+                            <p class="min-temp d-inline pl-3">{{forecast.main.temp_min}} °C</p>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,42 @@
+<div class="rectangle">
+    <div class="container">
+        <div class="p-5">
+            <p class="text-center search-title">Weather in your city</p>
+            <div class="input-group">
+                <input [(ngModel)]="cityName" type="text" class="form-control" placeholder="Your city name"
+                    aria-label="Your city name" aria-describedby="search-city-addon">
+                <div class="input-group-append">
+                    <button class="btn btn-white" id="search-city-addon" (click)="searchCity(cityName)"><span
+                            style="color: #39a3db" class="ion-android-search"></span></button>
+                </div>
+            </div>
+        </div>
+        <div class="card m-4" *ngFor="let city of cities.list">
+            <div class="row m-2" [routerLink]="['/details', city.id]">
+                <div class="col-3">
+                    <div class="m-3 p-0 curr-temp-box">
+                        <h1 class="pt-5 pb-5 m-0 curr-temp">{{city.main.temp}}°C</h1>
+                    </div>
+                </div>
+                <div class="col m-3">
+                    <p class="city-location d-inline pr-4">{{city.name}}, {{city.sys.country}}</p>
+                    <img src="http://openweathermap.org/images/flags/{{city.sys.country | lowercase}}.png"
+                        alt="{{city.sys.country}}">
+                    <div class="mt-3">
+                        <span class="mx-mn-temp">Máx</span>
+                        <p class="max-temp d-inline"> {{city.main.temp_max}} °C</p>
+                    </div>
+                    <div class="mt-3">
+                        <span class="mx-mn-temp">Mín</span>
+                        <p class="min-temp d-inline"> {{city.main.temp_min}} °C</p>
+                    </div>
+                </div>
+                <div class="col m-3 p-4 text-center">
+                    <img class="weather-icon" src="https://openweathermap.org/img/w/{{city.weather[0].icon}}.png"
+                        alt="{{city.weather[0].description}}">
+                    <p class="weather-sub">{{city.weather[0].description}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
